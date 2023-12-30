@@ -1,0 +1,52 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 79
+
+[tool.flake8]
+max-line-length = 79
+
+[tool.isort]
+line_length = 79
+include_trailing_comma = true
+
+[tool.mypy]
+ignore_missing_imports = true
+strict = true
+plugins = ["pydantic.mypy"]
+
+[tool.poetry]
+name = "data-provider"
+version = "0.1.0"
+description = ""
+authors = ["Sergey Bilibin <s.bilibin2017@yandex.ru>"]
+readme = "README.md"
+packages = [{include = "data_provider", from = "src"}]
+
+[tool.poetry.dependencies]
+python = ">=3.12,<3.13"
+pydantic = "==2.5.3"
+pydantic-settings = "==2.1.0"
+fastapi = "==0.108.0"
+orjson = "=3.9.10"
+uvicorn = "==0.25.0"
+gunicorn = "==21.2.0"
+aiologger = "^0.7.0"
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "==6.1.0"
+mypy = "==1.8.0"
+pyright = "==1.1.343"
+black = "==23.12.1"
+isort = "==5.13.2"
+toml-sort = "==0.23.1"
+autoflake = "==2.2.1"
+flake8-pyproject = "==1.2.3"
+pytest = "==7.4.3"
+pytest-asyncio = "==0.23.2"
+pytest-cov = "==4.1.0"
+
+[tool.pyright]
+include = ["src"]

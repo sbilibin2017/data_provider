@@ -1,0 +1,44 @@
+name: Check PR
+
+on:
+  push:
+    branches: [ "master" ]    
+  pull_request:
+    branches: [ "master" ]
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+permissions:
+  contents: read  
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12"]
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry  
+          poetry env use python3.12        
+          poetry install        
+                    
+      - name: Run Lint
+        run: make lint
+
+      - name: Run Tests
+        run: make tests
+
+        
